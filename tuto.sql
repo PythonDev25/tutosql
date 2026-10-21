@@ -2,15 +2,7 @@
 
 PRAGMA foreign_keys = ON;
 
-DROP TABLE librairie;
-
-CREATE TABLE Romans(
-       ID INTEGER PRIMARY KEY,
-       titre VARCHAR(150) NOT NULL UNIQUE,
-       auteur VARCHAR(150) NOT NULL UNIQUE,
-       DateParu DATE NOT NULL UNIQUE,
-       PRIX REAL (150) NOT NULL 
-);
+DROP TABLE Livre;
 
 INSERT INTO Romans (
        ID,
@@ -120,4 +112,58 @@ INSERT INTO cahiers(
       '500',
       '20',
       '300'
-);                                                                                                                                                                                                                                                                                                                                                                                                                                  
+);     
+
+CREATE TABLE lib_liv(
+       lib_id INTEGER NOT NULL,
+       liv_id INTEGER NOT NULL,
+       FOREIGN KEY (lib_id) REFERENCES librairie(ID) ON DELETE  CASCADE,
+       FOREIGN KEY (liv_id) REFERENCES LIVRE(ID) ON DELETE CASCADE,
+       PRIMARY KEY (lib_id, liv_id),
+       UNIQUE (lib_id, liv_id)
+);
+
+CREATE TABLE cah_lib(
+       cah_id INTEGER NOT NULL,
+       lib_id INTEGER NOT NULL,
+       FOREIGN KEY (cah_id) REFERENCES cahiers(ID) ON DELETE  CASCADE,
+       FOREIGN KEY (lib_id) REFERENCES librairie(ID) ON DELETE CASCADE,
+       PRIMARY KEY (cah_id, lib_id),
+       UNIQUE (cah_id, lib_id)
+);
+
+CREATE TABLE lib_rom(
+       lib_id INTEGER NOT NULL,
+       rom_id INTEGER NOT NULL,
+       FOREIGN KEY (lib_id) REFERENCES librairie(ID) ON DELETE  CASCADE,
+       FOREIGN KEY (rom_id) REFERENCES Romans(ID) ON DELETE CASCADE,
+       PRIMARY KEY (lib_id, rom_id),
+       UNIQUE (lib_id, rom_id)
+);
+
+CREATE TABLE Romans(
+       ID INTEGER PRIMARY KEY AUTOINCREMENT,
+       titre VARCHAR(50),
+       auteur VARCHAR(50),
+       DatParu DATETIME,
+       PRIX INT,
+       STOCK INT
+);
+
+CREATE TABLE Livre(
+       ID INTEGER PRIMARY KEY AUTOINCREMENT,
+       titre VARCHAR(50),
+       matiere VARCHAR(50),
+       edition VARCHAR(50),
+       PRIX INT,
+       STOCK INT
+);
+
+INSERT INTO Romans(
+       titre,
+       auteur,
+       DatParu,
+       PRIX
+)VALUES(
+       
+);
